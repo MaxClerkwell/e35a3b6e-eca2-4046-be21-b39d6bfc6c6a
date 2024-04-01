@@ -1,6 +1,9 @@
 \documentclass{dcbl/challenge}
 
-\setdoctitle{Der Titel meines Dokuments}
+\usepackage{graphicx}
+\usepackage{caption}
+
+\setdoctitle{Basic Navigation in Linux CLI}
 \setdocauthor{Stephan Bökelmann}
 \setdocemail{sboekelmann@ep1.rub.de}
 \setdocinstitute{AG Physik der Hadronen und Kerne}
@@ -8,20 +11,112 @@
 
 \begin{document}
 
-Jedes Challenge-Blatt beginnt mit einer kurzen Einleitung, die einen Kontext für den jeweiligen Zettel setzt. 
+The most fundamental way to communicate with our computer is by setting switches on and off. 
+While we used to program machines like that just a couple of decades ago, today we can do it with the command line.
+The command line interface of a computer is a powerful way to communicate with our machine. 
+A teletype keyboard is connected to in input-buffer on our machine. 
+We can type in commands, that get stored in the input-buffer. 
+By using the return key, a buffered command gets handed over to a process called a shell.
+This shell is in charge of dealing with the operating system and makes sure that our commands are executed. 
+The shell also handles the output of a given command, storing it's result and displaying additional information in the terminal-emulator.
+Being proficient with the terminal is a basic skill for any professional computer user.
+In order to be able to do these exercises, you need to have a linux-terminal installed. 
+It doesn't matter, whether it is a virtual machine or a native installation of a linux distrubution.
 
-\section*{Aufgaben}
+\section*{Exercises}
 \begin{aufgabe}
-    Löse die Gleichung $x^2 - 5x + 6 = 0$.
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.5\textwidth]{prompt.png}
+        \caption{The prompt of a terminal.}
+        \label{fig:prompt}
+    \end{figure}
+    Open up a terminal. 
+    You will be confronted with a line-by-line interface. 
+    A line typically consists of the shell signaling to you, that it is ready to exectue a command by writing a couple of characters at the beginning of a line. You can say \textit{it prompts you}, thus we call this start of a line the prompt.
+    Even though the specific design and content of the prompt can be configured individually, a typical prompt is shown in figure \ref{fig:prompt}.
+    Objects commonly shown in the prompt include:
+    \begin{enumerate}
+        \item The username of the current user. maxclerkwell in the example.
+        \item The hostname of the current machine. SURFnTERF in the example.
+        \item The current working directory. $\sim$ in the example.
+        \item An arrow indicating that the shell is ready to execute a command. > in the example.
+    \end{enumerate}
+    Type in any combination of characters into the promt, but do not press the return key.
+    Instead press Ctrl+C to abort the current input. 
+    Ctrl+C sends the so called \textit{interrupt signal} to the shell.
+    You will be using SIGINT a lot, to abort processes that are still running.
+    Pressing Ctrl+C on an empty line doesn't have any further side effects. 
+    Try it a couple of times and see, what happens.
+\end{aufgabe}
+\begin{aufgabe}
+    When our terminal is filled with a whole bunch of lines we don't want to see no further, a basic command to execute is \textit{clear}. 
+    This will clear the screen.
+\end{aufgabe}
+\begin{aufgabe}
+    Most operations in the terminal are text-based operations. 
+    Thus or focus for this worksheet is on text-based operations.
+    We want to find out, how to read stored information and write it into storage. 
+    We will have to distinguish between four types of storages here:
+    \begin{enumerate}
+        \item The terminal buffer.
+        \item The file system.
+        \item The shell variables.
+        \item The RAM.
+    \end{enumerate}
+    As soon as something is written to the terminal by the shell, it gets stored in the terminal buffer and subsequently written to the screen. 
+    Characters and information shown here are usually not longer modifiable, even though we will get to counter-examples later.
+    \begin{itemize}
+        \item Use the command \textit{echo "Hello World"} to write something to the terminal-buffer.
+    \end{itemize}
+    
+\end{aufgabe}
+\begin{aufgabe}
+    The next source of information is the file-system. 
+    A file is a named collection of bytes, which can be read from, written to, or both. 
+    File names get hierarchically organized. 
+    Even though we may think of files being stored in directories, they are not.
+    Dennis Ritchie and Ken Thompson wanted to represent the connection between multiple files, as if they would be part of the same thing in the files name. 
+    This was already used in the MULTICS OS project.
+    Thus they came up with an idea to symbolize this in a file-name-hierarchy, this symbol is a forward-slash (\textit{/}).
+    In order to save time writing long filenames, we use the idea of navigating through directories.
+    \begin{itemize}
+        \item Use the command \textit{cd /} to move to the root-directory of your file-system.
+        \item Use the command \textit{ls} to display all content of the current directory.
+        \item Use the command \textit{cd /etc} to navigate into the /etc directory.
+        \item Use the command \textit{cat passwd} to display the content of the /etc/passwd file.
+        \item Use the command \textit{cd $\sim$} to move to your home directory.
+        \item Use the command \textit{pwd} to display the current working directory.
+    \end{itemize}
+
+\end{aufgabe}
+\begin{aufgabe}
+    While we sometimes want to store information permanently in the file-system, we sometime also want to store information temporarily.
+    For this purpose we use the shell variables.
+    Let's assume, that we don't want to forget our favorite number.
+    We want to store this number in the shell variable \textit{favorite}.
+    \begin{itemize}
+        \item Use the command \textit{export favorite=42} to store the value.
+        \item Use the command \textit{echo \$favorite} to display the value of the variable.
+        \item Use the command \textit{unset favorite} to remove the variable.
+        \item Use the command \textit{printenv} to display all shell variables.
+    \end{itemize}
+
+\end{aufgabe}
+\begin{aufgabe}
+    The RAM is storage that can be used by programs running on our machine. 
+    The RAM is the main storage for our programs.
+    \begin{itemize}
+        \item Use the command \textit{free} to display information about the RAM.
+        \item Use the command \textit{top} to display the RAM usage of individual processes.
+        \item Use \textit{Ctrl+C} to abort the top command.
+    \end{itemize}
+
 \end{aufgabe}
 
-\begin{aufgabe}[Für Fortgeschrittene]
-    Beweise den Satz des Pythagoras.
-\end{aufgabe}
-
-\section*{Anmerkungen}
+\section*{Annotations}
 \begin{enumerate}
-    \item Link zu einem YouTube-Video: \url{https://www.youtube.com}
+    \item RedHat Tutorial on navigating the file system:\\ \url{https://www.redhat.com/sysadmin/Linux-file-navigation-commands}
 \end{enumerate}
 
 \end{document}
